@@ -31,17 +31,9 @@ class App extends Component {
     };
 
     // todo: de-bounce
-    buttonHandler = (e) => {
-        console.log('State:', this.state);
-        let newLabel;
-        if (this.state.doorOpen){
-            newLabel = 'Close Garage'
-        }
-        else {
-            newLabel = 'Open Garage'
-        }
-        this.setState({ doorOpen: !this.state.doorOpen, label: newLabel});
-
+    buttonHandler = async (e) => {
+        await this.setState({ doorOpen: !this.state.doorOpen, label: (!this.state.doorOpen) ? 'Close Garage' : 'Open Garage'});
+        console.log('Door Open:', this.state.doorOpen);
 
     };
 
