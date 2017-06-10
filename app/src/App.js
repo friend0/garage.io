@@ -1,21 +1,65 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import Header from './header';
+import Directions from './directions';
+import AppPassword from './appPassword';
+import {Button} from 'react-toolbox/lib/button/Button';
+import ProgressBar from 'react-progressbar.js';
 import './App.css';
 
+const Circle = ProgressBar.Circle;
+
+
+const password = 'HoldTheDoor';
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = { doorOpen: false, passwordInput:'', name: '', phone: '', email: '', hint: '', label:'Open Garage', progress:0};
+    }
+
+    options = {
+        strokeWidth: 2
+    };
+
+    containerStyle = {
+    width: '200px',
+    height: '200px'
+};
+    handleChange = (name, value) => {
+        this.setState({...this.state, [name]: value});
+    };
+
+    // todo: de-bounce
+    buttonHandler = (e) => {
+        console.log('State:', this.state);
+        let newLabel;
+        if (this.state.doorOpen){
+            newLabel = 'Close Garage'
+        }
+        else {
+            newLabel = 'Open Garage'
+        }
+        this.setState({ doorOpen: !this.state.doorOpen, label: newLabel});
+
+
+    };
+
+    render() {
+        return (
+            <div className="App">
+                <Header name="appHeader" />
+                <Directions name="appDirections" />
+                <AppPassword label={this.state.label} onChange={this.buttonHandler}/>
+
+
+                {/*<div>*/}
+                    {/*<ProgressBar type="circular" mode="indeterminate" />*/}
+                    {/*<ProgressBar type="linear" mode="determinate" value={83} buffer={90} />*/}
+                {/*</div>*/}
+            </div>
+        );
+    }
 }
 
 export default App;

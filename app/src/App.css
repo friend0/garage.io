@@ -1,12 +1,21 @@
 .App {
-  text-align: center;
-}
+    /*border: 2px solid black;*/
+    text-align: center;
+    /*background: #f5f5f5;*/
+    color: #333;
+    margin: 20px;
+    padding: 20px;}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
 
+.App-password {
+    height: 20px;
+    padding: 20px;
+    /*color: white;*/
+}
 .App-header {
   background-color: #222;
   height: 150px;
@@ -21,4 +30,20 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.input-password-wrapper input {
+    padding: 3px 22px 3px 3px;
+}
+.input-password-wrapper .icon-eye svg {
+    height: 15px;
+    width: 15px;
+    position: relative;
+    top: 2px;
+    right: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+.input-password-wrapper .icon-eye.active svg {
+    opacity: 1;
 }
