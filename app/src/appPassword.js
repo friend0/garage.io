@@ -11,7 +11,7 @@ class AppPassword extends React.Component {
     render() {
         return <div className="App-password">
             <h1>Enter Password to Open Garage</h1>
-            <PasswordInput onChange={this.props.handler}/>
+            <PasswordInput onChange={this.props.passwordHandler}/>
             <Button label={this.props.label} onClick={this.onChangeDebounce} raised primary/>
         </div>
     }
