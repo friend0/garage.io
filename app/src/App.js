@@ -3,10 +3,10 @@ import Header from './header';
 import Directions from './directions';
 import AppPassword from './appPassword';
 import './App.css';
-// const GPIO = require('onoff').Gpio;
+const GPIO = require('onoff').Gpio;
 
 const password = 'HoldTheDoor';
-const controlPin = new GPIO(5, 'out');
+const controlPin = new GPIO(2, 'out');
 
 class App extends Component {
 
@@ -45,13 +45,12 @@ class App extends Component {
         this.setState({...this.state, [name]: value});
     };
 
-    // todo: de-bounce
     buttonHandler = async (e) => {
         if (this.state.password === password){
             await this.setState({ doorOpen: !this.state.doorOpen, label: (!this.state.doorOpen) ? 'Close Garage' : 'Open Garage'});
-            writeSync(1);
-            setTimeout(function () {
-                writeSync(0);
+            controlPin.writeSync(1);
+            setTimeout(()=>{
+                controlPin.writeSync(0);
             }, 500);
             console.log('Door State:', this.state.doorOpen);
         }
