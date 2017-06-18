@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.2",
+    "debounce": "^1.0.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-native-progress": "^3.2.1",
     "react-progressbar.js": "^0.2.0",
     "react-router-dom": "^4.1.1",
     "react-toolbox": "^2.0.0-beta.12",
-    "react-toolbox-themr": "^1.0.2"
+    "socket.io-client": "^2.0.3"
   },
   "devDependencies": {
     "react-scripts": "1.0.7"
@@ -18,8 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "toolbox": "react-toolbox-themr"
+    "eject": "react-scripts eject"
   },
   "reactToolbox": {
     "include": [
@@ -35,5 +36,6 @@
       "color-accent-contrast": "var(--color-dark-contrast)"
     },
     "output": "assets/react-toolbox"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }

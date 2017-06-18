@@ -1,0 +1,12 @@
+{
+  "name": "garage.io",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "install": "",
+    "start": "node ./server",
+    "build": "npm --prefix ./client run build ./client",
+    "install: server": "npm --prefix ./server run install ./server",
+    "install: client": "npm --prefix ./client run install ./client"
+  }
+}

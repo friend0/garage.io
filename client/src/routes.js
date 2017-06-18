@@ -12,11 +12,4 @@ const Routes = (props) => (
     </BrowserRouter>
 );
 
-// const Routes = (props) => (
-//     <Router {...props}>
-//         <Route path="/" component={App} />
-//         {/*<Route path="*" component={NotFound} />*/}
-//     </Router>
-// );
-
 export default Routes;
