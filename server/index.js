@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
-const Gpio = require('onoff').Gpio;
 
+// allows local dev on mac
+let Gpio;
 try {
     Gpio = require('onoff').Gpio;
 }
