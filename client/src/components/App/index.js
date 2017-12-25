@@ -66,6 +66,7 @@ class App extends Component {
             console.log('Doors open mayne:', this.state.doorOpen);
         }
         else {
+            console.log('RESPONSE',response);
             console.log('Incorrect Password!');
         }
     };
