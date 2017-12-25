@@ -10,7 +10,6 @@ catch (e) {
     console.log(e);
 }
 
-console.log("ONOFF", Gpio)
 const app = express();
 const http = require('http');
 
