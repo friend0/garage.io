@@ -1,18 +1,21 @@
 const express = require('express');
 const path = require('path');
-let Gpio;
+const Gpio = require('onoff').Gpio;
+
 try {
     Gpio = require('onoff').Gpio;
 }
 catch (e) {
     console.log(e);
 }
+
+console.log("ONOFF", Gpio)
 const app = express();
 const http = require('http');
 
 let controlPin;
 if (Gpio){
-    controlPin = new GPIO(2, 'out');
+    controlPin = new Gpio(2, 'out');
 }
 
 const password = 'HoldTheDoor';
@@ -51,6 +54,5 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/../client/build/index.html'));
 });
 
-const port = process.env.PORT || 3001;
-app.listen(port);
+app.listen(process.env.PORT || 3001);
 console.log(`Garage.io listening on ${port}`);

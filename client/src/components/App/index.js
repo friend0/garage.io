@@ -61,12 +61,12 @@ class App extends Component {
             console.log(e);
         }
 
-        if (response && response.status === 200){
+        if (response && response.datastatus === 200){
             await this.setState({ doorOpen: !this.state.doorOpen, label: (!this.state.doorOpen) ? 'Close Garage' : 'Open Garage'});
             console.log('Doors open mayne:', this.state.doorOpen);
         }
         else {
-            throw Error('Incorrect Password or Bad Response.');
+            console.log('Incorrect Password!');
         }
     };
 
