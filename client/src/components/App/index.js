@@ -61,7 +61,7 @@ class App extends Component {
             console.log(e);
         }
 
-        if (response && reponse.date && response.data.status === 200){
+        if (response && response.data && response.data.status === 200){
             await this.setState({ doorOpen: !this.state.doorOpen, label: (!this.state.doorOpen) ? 'Close Garage' : 'Open Garage'});
             console.log('Doors open mayne:', this.state.doorOpen);
         }
