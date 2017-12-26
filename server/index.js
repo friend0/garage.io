@@ -41,8 +41,8 @@ app.use(express.static(path.join(__dirname, '/../client/build')));
 
 // Put all API endpoints under '/api'
 app.get('/api/control', (req, res) => {
-    console.log('Received request');
-    console.log(`Received password: ${password}`);
+    console.log(`Received req: ${JSON.stringify(req)}`);
+    console.log(`Received res: ${JSON.stringify(res)}`);
 
     let user;
     knex.select()
