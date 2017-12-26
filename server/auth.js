@@ -1,7 +1,7 @@
 const db = require('./db');
 
 module.exports = {
-	authorizeWrite: function ({ email, password} = {}) {
+	authorizeWrite: async function ({ email, password} = {}) {
 	    const users = await db.select()
 	        .from('users')
 	        .where('email', req.query.email)
