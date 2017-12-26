@@ -47,7 +47,7 @@ app.get('/api/control', (req, res) => {
     let user;
     knex.select()
         .from('users')
-        .where('email', res.query.email)
+        .where('email', req.query.email)
         .andWhere('password', knex.raw(`crypt(${req.query.password}, password)`))
         .then((data) => {
             user = data[0];
