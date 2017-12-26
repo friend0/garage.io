@@ -11,8 +11,6 @@ const knex = require('knex')({
     }
 });
 
-const ledPin = new Gpio(10, 'out');
-
 // allows local dev on mac
 let Gpio;
 try {
@@ -28,6 +26,7 @@ let controlPin;
 if (Gpio) {
     controlPin = new Gpio(2, 'out');
 }
+const ledPin = new Gpio(10, 'out');
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/../client/build')));
