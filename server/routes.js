@@ -1,4 +1,6 @@
 const db = require('./db');
+const auth = require('./auth');
+const hardware = require('./hardware');
 
 module.exports = function(app) {
 
@@ -6,31 +8,24 @@ module.exports = function(app) {
     // Put all API endpoints under '/api'
     app.get('/api/control', async (req, res) => {
         try {
-            const users = await db.select()
-                .from('users')
-                .where('email', req.query.email)
-                .andWhere('password', knex.raw(`crypt(?, password)`, [req.query.password]));
-            const user = users[0];
-            if (user) {
-                if (controlPin) {
-                    controlPin.writeSync(1);
-                    ledPin.writeSync(1);
-                    setTimeout(() => {
-                        ledPin.writeSync(0);
-                        controlPin.writeSync(0);
-                    }, 500);
-                }
-                res.json({
-                    message: 'Authenticated.',
-                    status: 200
-                });
-            } else {
-                console.log('Incorrect email/password combination.');
-                res.json({
-                    message: 'Incorrect email/password combination.',
-                    status: 400
-                })
+            await auth.authorizeWrite({
+                email,
+                password
+            });
+
+            if (hardware.controlPin) {
+                hardware.controlPin.writeSync(1);
+                hardware.ledPin.writeSync(1);
+                setTimeout(() => {
+                    hardware.ledPin.writeSync(0);
+                    hardware.controlPin.writeSync(0);
+                }, 500);
             }
+            res.json({
+                message: 'Authenticated.',
+                status: 200
+            });
+
         } catch (e) {
             console.log('There was an error handling this request', e)
             res.json({
