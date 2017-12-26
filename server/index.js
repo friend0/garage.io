@@ -26,7 +26,7 @@ let controlPin;
 if (Gpio) {
     controlPin = new Gpio(2, 'out');
 }
-const ledPin = new Gpio(10, 'out');
+const ledPin = new Gpio(15, 'out');
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/../client/build')));
