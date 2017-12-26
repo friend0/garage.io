@@ -47,8 +47,7 @@ app.get('/api/control', (req, res) => {
     let user;
     knex.select()
         .from('users')
-        // .where('email', res.query.email)
-        .where('email', 'empireryan@gmail.com')
+        .where('email', res.query.email)
         .andWhere('password', knex.raw(`crypt(${req.query.password}, password)`))
         .then((data) => {
             user = data[0];
@@ -63,11 +62,13 @@ app.get('/api/control', (req, res) => {
                         }, 500);
                     }
                     res.json({
+                        message: 'Authenticated',
                         status: 200
                     });
                 }
 
             } else {
+                console.log('Incorrect email/password combination.');
                 res.json({
                     message: 'Incorrect email/password combination.',
                     status: 400
@@ -75,7 +76,9 @@ app.get('/api/control', (req, res) => {
             }
         })
         .catch((err) => {
+            console.log('No user with those credentials found.');
             res.json({
+                message: 'No user with those credentials found.',
                 status: 400
             })
         });

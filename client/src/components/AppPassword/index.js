@@ -10,7 +10,7 @@ class AppPassword extends React.Component {
 
 	render() {
 		return <div className = "App-password" >
-			<h1> Enter Password to Open Garage </h1> 
+			<h1> Enter your credentials </h1> 
 			<Form fields = {
 				[{
 					key: 'email',

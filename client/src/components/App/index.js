@@ -74,14 +74,11 @@ class App extends Component {
     };
 
     render() {
-        return ( <
-            div className = "App" >
-            <
-            Header name = "appHeader" / >
-            <
-            Directions name = "appDirections" / >
-            <
-            AppPassword label = {
+        return ( 
+            <div className = "App" >
+            <Header name = "appHeader" / >
+            <Directions name = "appDirections" / >
+            <AppPassword label = {
                 this.state.label
             }
             passwordHandler = {
@@ -92,9 +89,7 @@ class App extends Component {
             }
             onChange = {
                 this.buttonHandler
-            }
-            /> <
-            /div>
+            }/> </div>
         );
     }
 }
