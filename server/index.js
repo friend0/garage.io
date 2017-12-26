@@ -11,12 +11,7 @@ const knex = require('knex')({
     }
 });
 
-// knex.select().from('users').then((data) => {
-//     console.log('knex responses (', data.length, '):');
-//     for (const row of data) {
-//         console.log(row)
-//     }
-// })
+const ledPin = new Gpio(10, 'out');
 
 // allows local dev on mac
 let Gpio;
@@ -34,21 +29,12 @@ if (Gpio) {
     controlPin = new Gpio(2, 'out');
 }
 
-const password = 'HoldTheDoor';
-
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/../client/build')));
 
 // Put all API endpoints under '/api'
 app.get('/api/control', (req, res) => {
-    console.log('REQUEST')
-    console.log(req.query)
-
     let user;
-    console.log(knex.select()
-        .from('users')
-        .where('email', req.query.email)
-        .andWhere('password', knex.raw(`crypt(?, password)`)).toSQL())
     knex.select()
         .from('users')
         .where('email', req.query.email)
@@ -58,7 +44,9 @@ app.get('/api/control', (req, res) => {
             if (user) {
                 if (controlPin) {
                     controlPin.writeSync(1);
+                    ledPin.writeSync(1);
                     setTimeout(() => {
+                        ledPin.writeSync(0);
                         controlPin.writeSync(0);
                     }, 500);
                 }
