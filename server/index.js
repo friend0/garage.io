@@ -1,6 +1,17 @@
 const express = require('express');
 const path = require('path');
 
+const knex = require('knex')({
+  client: 'pg',
+  connection: {
+    host : '127.0.0.1',
+    user : 'pi',
+    password : 'raspberryPostgres',
+    database : 'garage_io'
+  }
+});
+
+console.log('KNEX', knex)
 // allows local dev on mac
 let Gpio;
 try {
