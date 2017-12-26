@@ -1,10 +1,12 @@
 
 module.exports = function(app, knex) {
 
+    debugger;
+    this.knex = knex;
     // Put all API endpoints under '/api'
     app.get('/api/control', async (req, res) => {
         try {
-            const users = await knex.select()
+            const users = await this.knex.select()
                 .from('users')
                 .where('email', req.query.email)
                 .andWhere('password', knex.raw(`crypt(?, password)`, [req.query.password]));
@@ -30,7 +32,7 @@ module.exports = function(app, knex) {
                 })
             }
         } catch (e) {
-            console.log('There was an error handling this request', err)
+            console.log('There was an error handling this request', e)
             res.json({
                 message: 'There was an error handling this request.',
                 status: 400
