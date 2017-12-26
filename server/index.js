@@ -57,7 +57,7 @@ app.get('/api/control', (req, res) => {
             user = data[0];
             console.log('FOUND USER', user)
             if (user && user.email === 'empireryan@gmail.com') {
-                if (user.email === res.query.email) {
+                if (user.email === req.query.email) {
                     console.log(`Received password: ${password}`);
                     if (controlPin) {
                         controlPin.writeSync(1);
