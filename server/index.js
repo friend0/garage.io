@@ -76,6 +76,7 @@ app.get('/api/control', (req, res) => {
             }
         })
         .catch((err) => {
+            console.log('ERR', err)
             console.log('No user with those credentials found.');
             res.json({
                 message: 'No user with those credentials found.',
