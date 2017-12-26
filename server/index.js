@@ -41,15 +41,17 @@ app.use(express.static(path.join(__dirname, '/../client/build')));
 
 // Put all API endpoints under '/api'
 app.get('/api/control', (req, res) => {
-    console.log(`Received req: ${JSON.stringify(req)}`);
-    console.log(`Received res: ${JSON.stringify(res)}`);
+    console.log('REQUEST')
+    console.log(req.query)
+    console.log(`Received res: ${res}`);
+    console.log(res.query)
 
     let user;
     knex.select()
         .from('users')
         // .where('email', res.query.email)
         .where('email', 'empireryan@gmail.com')
-        .andWhere('password', knex.raw(`crypt(${res.query.password}, password)`))
+        .andWhere('password', knex.raw(`crypt(${req.query.password}, password)`))
         .then((data) => {
             user = data[0];
             console.log('FOUND USER', user)
