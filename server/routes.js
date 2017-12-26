@@ -9,8 +9,8 @@ module.exports = function(app) {
     app.get('/api/control', async (req, res) => {
         try {
             await auth.authorizeWrite({
-                email,
-                password
+                email: req.query.email,
+                password: req.query.password,
             });
 
             if (hardware.controlPin) {
