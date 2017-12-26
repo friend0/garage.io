@@ -48,11 +48,11 @@ app.get('/api/control', (req, res) => {
     console.log(knex.select()
         .from('users')
         .where('email', req.query.email)
-        .andWhere('password', knex.raw(`crypt('${req.query.password}', password)`)).toSQL())
+        .andWhere('password', knex.raw(`crypt(?, password)`)).toSQL())
     knex.select()
         .from('users')
         .where('email', req.query.email)
-        .andWhere('password', knex.raw(`crypt(${req.query.password}, password)`))
+        .andWhere('password', knex.raw(`crypt(?, password)`, [req.query.password]))
         .then((data) => {
             user = data[0];
             console.log('FOUND USER', user)
