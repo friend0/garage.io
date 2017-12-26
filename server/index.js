@@ -47,7 +47,7 @@ app.get('/api/control', (req, res) => {
     let user;
     knex.select()
         .from('users')
-        .where('email', res.query.email)
+        .where('email', req.query.email)
         .andWhere('password', knex.raw(`crypt(${req.query.password}, password)`))
         .then((data) => {
             user = data[0];
@@ -76,6 +76,7 @@ app.get('/api/control', (req, res) => {
             }
         })
         .catch((err) => {
+            console.log('ERR', err)
             console.log('No user with those credentials found.');
             res.json({
                 message: 'No user with those credentials found.',
