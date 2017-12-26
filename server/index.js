@@ -24,7 +24,7 @@ const http = require('http');
 
 let controlPin;
 if (Gpio) {
-    controlPin = new Gpio(2, 'out');
+    controlPin = new Gpio(14, 'out');
 }
 const ledPin = new Gpio(15, 'out');
 
