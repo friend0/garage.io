@@ -55,22 +55,17 @@ app.get('/api/control', (req, res) => {
         .andWhere('password', knex.raw(`crypt(?, password)`, [req.query.password]))
         .then((data) => {
             user = data[0];
-            console.log('FOUND USER', user)
-            if (user && user.email === 'empireryan@gmail.com') {
-                if (user.email === req.query.email) {
-                    console.log(`Received password: ${password}`);
-                    if (controlPin) {
-                        controlPin.writeSync(1);
-                        setTimeout(() => {
-                            controlPin.writeSync(0);
-                        }, 500);
-                    }
-                    res.json({
-                        message: 'Authenticated',
-                        status: 200
-                    });
+            if (user) {
+                if (controlPin) {
+                    controlPin.writeSync(1);
+                    setTimeout(() => {
+                        controlPin.writeSync(0);
+                    }, 500);
                 }
-
+                res.json({
+                    message: 'Authenticated.',
+                    status: 200
+                });
             } else {
                 console.log('Incorrect email/password combination.');
                 res.json({
