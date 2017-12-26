@@ -1,11 +1,12 @@
+const db = require('./db');
 
-module.exports = function(app, knex) {
+module.exports = function(app) {
 
     debugger;
     // Put all API endpoints under '/api'
-    app.get('/api/control', async (req, res, knex) => {
+    app.get('/api/control', async (req, res) => {
         try {
-            const users = await knex.select()
+            const users = await db.select()
                 .from('users')
                 .where('email', req.query.email)
                 .andWhere('password', knex.raw(`crypt(?, password)`, [req.query.password]));
