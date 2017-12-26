@@ -43,8 +43,6 @@ app.use(express.static(path.join(__dirname, '/../client/build')));
 app.get('/api/control', (req, res) => {
     console.log('REQUEST')
     console.log(req.query)
-    console.log(`Received res: ${res}`);
-    console.log(res.query)
 
     let user;
     knex.select()
@@ -55,7 +53,7 @@ app.get('/api/control', (req, res) => {
         .then((data) => {
             user = data[0];
             console.log('FOUND USER', user)
-            if (user) {
+            if (user && user.email === 'empireryan@gmail.com') {
                 if (user.email === res.query.email) {
                     console.log(`Received password: ${password}`);
                     if (controlPin) {
@@ -71,6 +69,7 @@ app.get('/api/control', (req, res) => {
 
             } else {
                 res.json({
+                    message: 'Incorrect email/password combination.',
                     status: 400
                 })
             }

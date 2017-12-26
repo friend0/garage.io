@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React, {
+    Component
+} from 'react';
 import Header from '../Header/index';
 import Directions from '../Directions';
 import AppPassword from '../AppPassword';
@@ -12,21 +14,15 @@ class App extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             doorOpen: false,
-            password:'',
+            password: '',
             name: '',
             phone: '',
             email: '',
             hint: '',
-            label:'Open Garage',
+            label: 'Open Garage',
             progress: 0,
         };
     }
-
-    // componentDidMount() {
-    //     fetch('/api/control')
-    //         .then(res => res.json())
-    //         .then(users => this.setState({ users }));
-    // }
 
     componentWillMount() {
         // With limit switches, init state if you can
@@ -34,13 +30,18 @@ class App extends Component {
 
     }
 
-     passwordHandler = (val, ...rest) => {
-        console.log(val.target.value);
+    emailHandler = (val, ...rest) => {
+        this.handleChange('email', val.email);
+    };
+
+    passwordHandler = (val, ...rest) => {
         this.handleChange('password', val.target.value);
     };
 
     handleChange = (name, value) => {
-        this.setState({...this.state, [name]: value});
+        this.setState({ ...this.state,
+            [name]: value
+        });
     };
 
     buttonHandler = async (e) => {
@@ -49,34 +50,51 @@ class App extends Component {
         let response;
         try {
             response = await axios({
-                method:'get',
-                url:'/api/control',
+                method: 'get',
+                url: '/api/control',
                 params: {
                     password: this.state.password,
+                    email: this.state.email,
                 }
             });
             console.log(response);
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
 
-        if (response && response.data && response.data.status === 200){
-            await this.setState({ doorOpen: !this.state.doorOpen, label: (!this.state.doorOpen) ? 'Close Garage' : 'Open Garage'});
+        if (response && response.data && response.data.status === 200) {
+            await this.setState({
+                doorOpen: !this.state.doorOpen,
+                label: (!this.state.doorOpen) ? 'Close Garage' : 'Open Garage'
+            });
             console.log('Doors open mayne:', this.state.doorOpen);
-        }
-        else {
+        } else {
             console.log('Incorrect Password!');
         }
     };
 
     render() {
-        return (
-            <div className="App">
-                <Header name="appHeader" />
-                <Directions name="appDirections" />
-                <AppPassword label={this.state.label} passwordHandler={this.passwordHandler} onChange={this.buttonHandler}/>
-            </div>
+        return ( <
+            div className = "App" >
+            <
+            Header name = "appHeader" / >
+            <
+            Directions name = "appDirections" / >
+            <
+            AppPassword label = {
+                this.state.label
+            }
+            passwordHandler = {
+                this.passwordHandler
+            }
+            emailHandler = {
+                this.emailHandler
+            }
+            onChange = {
+                this.buttonHandler
+            }
+            /> <
+            /div>
         );
     }
 }

@@ -8,6 +8,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-input-password": "^1.0.21",
+    "react-input": "^4.1.3",
     "react-native-progress": "^3.2.1",
     "react-progressbar.js": "^0.2.0",
     "react-router-dom": "^4.1.1",
