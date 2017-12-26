@@ -11,7 +11,9 @@ const knex = require('knex')({
   }
 });
 
-console.log('KNEX', knex.select().from('users').then((data) => data))
+console.log('KNEX', knex.select().from('users').then((data) => {
+    for (const row of data){ console.log(row)}
+}))
 // allows local dev on mac
 let Gpio;
 try {
