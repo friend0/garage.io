@@ -30,7 +30,7 @@ module.exports = function(app, knex) {
                 })
             }
         } catch (e) {
-            console.log('There was an error handling this request', err)
+            console.log('There was an error handling this request', e)
             res.json({
                 message: 'There was an error handling this request.',
                 status: 400
