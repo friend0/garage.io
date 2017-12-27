@@ -3,9 +3,10 @@ import React, {
 } from 'react';
 import Header from '../Header/index';
 import Directions from '../Directions';
-import AppPassword from '../AppPassword';
+import IngressAuth from '../IngressAuth';
 import axios from 'axios';
 import './style.css';
+import Layout from '../Layout';
 
 class App extends Component {
 
@@ -75,21 +76,20 @@ class App extends Component {
 
     render() {
         return ( 
-            <div className = "App" >
-            <Header name = "appHeader" / >
-            <Directions name = "appDirections" / >
-            <AppPassword label = {
-                this.state.label
-            }
-            passwordHandler = {
-                this.passwordHandler
-            }
-            emailHandler = {
-                this.emailHandler
-            }
-            onChange = {
-                this.buttonHandler
-            }/> </div>
+            <Layout>
+                <IngressAuth label = {
+                    this.state.label
+                }
+                passwordHandler = {
+                    this.passwordHandler
+                }
+                emailHandler = {
+                    this.emailHandler
+                }
+                onChange = {
+                    this.buttonHandler
+                }/> 
+            </Layout>
         );
     }
 }
