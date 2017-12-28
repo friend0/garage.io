@@ -3,7 +3,7 @@ const auth = require("./auth");
 const hardware = require("./hardware");
 const express = require("express");
 const router = express.Router();
-
+const path = require('path');
 const winston = require("winston");
 
 const logger = winston.createLogger({
@@ -72,7 +72,8 @@ router.post(
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 router.get("*", async (req, res) => {
-    res.sendFile(path.join(__dirname + "/../client/build"));
+    res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
+    // res.sendFile(path.join(__dirname + "/../client/build"));
 });
 
 module.exports = router;
