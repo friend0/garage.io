@@ -1,17 +1,9 @@
-import React, {
-	Component
-} from "react";
-import {
-	Button,
-	FormGroup,
-	FormControl,
-	ControlLabel
-} from "react-bootstrap";
+import React, { Component } from "react";
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 // import config from "../config";
 import "./signup.css";
-import Layout from '../Layout';
-import axios from 'axios';
-
+import Layout from "../Layout";
+import axios from "axios";
 
 export default class Signup extends Component {
 	constructor(props) {
@@ -24,21 +16,21 @@ export default class Signup extends Component {
 	}
 
 	signup() {
-		console.log('STATE ---->', this)
+		console.log("STATE ---->", this);
 		axios({
-				method: 'post',
-				url: '/api/users',
-				data: {
-					email: this.state.email,
-					password: this.state.password,
-				},
-			}).then(function(response) {
+			method: "post",
+			url: "/api/users",
+			data: {
+				email: this.state.email,
+				password: this.state.password
+			}
+		})
+			.then(function(response) {
 				console.log(response);
 			})
 			.catch(function(error) {
 				console.log(error);
 			});
-
 	}
 
 	validateForm() {
@@ -49,7 +41,7 @@ export default class Signup extends Component {
 		this.setState({
 			[event.target.id]: event.target.value
 		});
-	}
+	};
 
 	handleSubmit = async event => {
 		event.preventDefault();
@@ -60,54 +52,41 @@ export default class Signup extends Component {
 		} catch (e) {
 			alert(e);
 		}
-	}
+	};
 
 	render() {
-		return ( <
-			Layout >
-			<
-			div className = "Signup" >
-			<
-			form onSubmit = {
-				this.handleSubmit
-			} >
-			<
-			FormGroup controlId = "email"
-			bsSize = "large" >
-			<
-			ControlLabel > Email < /ControlLabel> <
-			FormControl autoFocus type = "email"
-			value = {
-				this.state.email
-			}
-			onChange = {
-				this.handleChange
-			}
-			/> < /
-			FormGroup > <
-			FormGroup controlId = "password"
-			bsSize = "large" >
-			<
-			ControlLabel > Password < /ControlLabel> <
-			FormControl value = {
-				this.state.password
-			}
-			onChange = {
-				this.handleChange
-			}
-			type = "password" /
-			>
-			<
-			/FormGroup> <
-			Button block bsSize = "large"
-			disabled = {!this.validateForm()
-			}
-			type = "submit" >
-			Request Access <
-			/Button> < /
-			form > <
-			/div> < /
-			Layout >
+		return (
+			<Layout>
+				<div className="Signup">
+					<form onSubmit={this.handleSubmit}>
+						<FormGroup controlId="email" bsSize="large">
+							<ControlLabel> Email </ControlLabel>{" "}
+							<FormControl
+								autoFocus
+								type="email"
+								value={this.state.email}
+								onChange={this.handleChange}
+							/>{" "}
+						</FormGroup>{" "}
+						<FormGroup controlId="password" bsSize="large">
+							<ControlLabel> Password </ControlLabel>{" "}
+							<FormControl
+								value={this.state.password}
+								onChange={this.handleChange}
+								type="password"
+							/>
+						</FormGroup>{" "}
+						<Button
+							block
+							bsSize="large"
+							disabled={!this.validateForm()}
+							type="submit"
+						>
+							Request Access{" "}
+						</Button>{" "}
+					</form>{" "}
+				</div>{" "}
+			</Layout>
 		);
 	}
 }

@@ -3,6 +3,7 @@ const path = require('path');
 const routes = require('./routes');
 // const passport = require('passport');
 const bodyParser = require('body-parser')
+var fs = require('fs');
 
 const app = express();
 const http = require('http');
