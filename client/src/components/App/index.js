@@ -1,60 +1,59 @@
-import React, {
-    Component
-} from 'react';
-import Header from '../Header/index';
-import Directions from '../Directions';
-import AppPassword from '../AppPassword';
-import axios from 'axios';
-import './style.css';
+import React, { Component } from "react";
+import Header from "../Header/index";
+import Directions from "../Directions";
+import IngressAuth from "../IngressAuth";
+import axios from "axios";
+import "./style.css";
+import Layout from "../Layout";
 
 class App extends Component {
-
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             doorOpen: false,
-            password: '',
-            name: '',
-            phone: '',
-            email: '',
-            hint: '',
-            label: 'Open Garage',
-            progress: 0,
+            password: "",
+            name: "",
+            phone: "",
+            email: "",
+            hint: "",
+            label: "Open Garage",
+            progress: 0
         };
     }
 
     componentWillMount() {
         // With limit switches, init state if you can
-        console.log('App mounting...');
-
-    }
+        console.log("App mounting...");
+    };
 
     emailHandler = (val, ...rest) => {
-        this.handleChange('email', val.email);
+        this.handleChange("email", val.target.value);
     };
 
     passwordHandler = (val, ...rest) => {
-        this.handleChange('password', val.target.value);
+        this.handleChange("password", val.target.value);
     };
 
     handleChange = (name, value) => {
-        this.setState({ ...this.state,
+        this.setState({
+            ...this.state,
             [name]: value
         });
     };
 
-    buttonHandler = async (e) => {
+    buttonHandler = async e => {
         // if (this.state.password === password){
-        console.log('Button Pressed...');
+        console.log("Button Pressed...");
+        console.log("state at button press...", this.state);
         let response;
         try {
             response = await axios({
-                method: 'get',
-                url: '/api/control',
+                method: "get",
+                url: "/api/control",
                 params: {
                     password: this.state.password,
-                    email: this.state.email,
+                    email: this.state.email
                 }
             });
             console.log(response);
@@ -65,38 +64,28 @@ class App extends Component {
         if (response && response.data && response.data.status === 200) {
             await this.setState({
                 doorOpen: !this.state.doorOpen,
-                label: (!this.state.doorOpen) ? 'Close Garage' : 'Open Garage'
+                label: !this.state.doorOpen ? "Close Garage" : "Open Garage"
             });
-            console.log('Doors open mayne:', this.state.doorOpen);
+            console.log("Doors open mayne:", this.state.doorOpen);
         } else {
-            console.log('Incorrect Password!');
+            console.log("Incorrect Password!");
         }
     };
 
     render() {
-        return ( 
-            <div className = "App" >
-            <Header name = "appHeader" / >
-            <Directions name = "appDirections" / >
-            <AppPassword label = {
-                this.state.label
-            }
-            passwordHandler = {
-                this.passwordHandler
-            }
-            emailHandler = {
-                this.emailHandler
-            }
-            onChange = {
-                this.buttonHandler
-            }/> </div>
+        return (
+            <Layout>
+                <IngressAuth
+                    label={this.state.label}
+                    email={this.state.email}
+                    password={this.state.password}
+                    passwordHandler={this.passwordHandler}
+                    emailHandler={this.emailHandler}
+                    onSubmit={this.buttonHandler}
+                />
+            </Layout>
         );
     }
 }
-
-// process.on('SIGINT', function () {
-//     led.unexport();
-//     button.unexport();
-// });
 
 export default App;

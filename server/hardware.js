@@ -3,7 +3,7 @@ let Gpio;
 try {
 	Gpio = require('onoff').Gpio;
 } catch (e) {
-	console.log(e);
+	// console.log(e);
 }
 
 let controlPin;
