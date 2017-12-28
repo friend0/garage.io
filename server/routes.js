@@ -1,11 +1,10 @@
 const db = require('./db');
 const auth = require('./auth');
 const hardware = require('./hardware');
-const express = require('express'),
-    router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-const winston = require('winston'),
-    expressWinston = require('express-winston');
+const winston = require('winston');
 
 const logger = winston.createLogger({
     json: true,
@@ -61,7 +60,7 @@ router.get('/api/control', asyncMiddleware(async (req, res) => {
 
 
 router.post('/api/users', asyncMiddleware(async (req, res, next) => {
-    /* 
+    /*
       if there is an error thrown in getUserFromDb, asyncMiddleware
       will pass it to next() and express will handle the error;
     */
