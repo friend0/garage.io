@@ -57,23 +57,16 @@ router.get(
 router.post(
     "/api/users",
     asyncMiddleware(async (req, res) => {
-        /*
-      if there is an error thrown in getUserFromDb, asyncMiddleware
-      will pass it to next() and express will handle the error;
-    */
-        const insertResults = await db("users")
+        await db("users")
             .insert({ email: req.body.email, password: db.raw("crypt(?, gen_salt('bf'))", [req.body.password])})
             .returning("*");
-        logger.info('insertResults', insertResults)
         res.json({ status: 200 });
     })
 );
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
+
 router.get("*", async (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
-    // res.sendFile(path.join(__dirname + "/../client/build"));
 });
 
 module.exports = router;
