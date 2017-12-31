@@ -16,7 +16,6 @@ export default class Signup extends Component {
 	}
 
 	signup() {
-		console.log("STATE ---->", this);
 		axios({
 			method: "post",
 			url: "/api/users",

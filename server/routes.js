@@ -56,15 +56,15 @@ router.get(
 
 router.post(
     "/api/users",
-    asyncMiddleware(async (req, res, next) => {
+    asyncMiddleware(async (req, res) => {
         /*
       if there is an error thrown in getUserFromDb, asyncMiddleware
       will pass it to next() and express will handle the error;
     */
         const insertResults = await db("users")
-            .insert({ email: req.body.email, password: req.body.password })
+            .insert({ email: req.body.email, password: db.raw("crypt(?, gen_salt('bf'))", [req.body.password])})
             .returning("*");
-        // logger.info(insertResults)
+        logger.info('insertResults', insertResults)
         res.json({ status: 200 });
     })
 );
