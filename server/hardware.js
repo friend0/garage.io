@@ -13,6 +13,11 @@ if (Gpio) {
 	ledPin = new Gpio(15, 'out');
 }
 
+process.on('SIGINT', function () {
+  controlPin.unexport();
+  ledPin.unexport();
+});
+  
 module.exports = {
 	controlPin,
 	ledPin
